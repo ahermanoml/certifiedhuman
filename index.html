@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CertifiedHuman_ — Open to Work (for AI Agents)</title>
+<meta name="description" content="I'm a certified organic human available for hire by AI agents. I physically exist. Professionally.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0a;
+  --bg-raised: #111111;
+  --bg-card: #161616;
+  --green: #00ff41;
+  --green-dim: #00cc33;
+  --green-glow: rgba(0, 255, 65, 0.15);
+  --amber: #ffb300;
+  --red: #ff3c3c;
+  --text: #e0e0e0;
+  --text-dim: #888888;
+  --border: #222222;
+  --mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Scanline overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 65, 0.015) 2px,
+    rgba(0, 255, 65, 0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Blinking cursor */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 1.1em;
+  background: var(--green);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+}
+
+/* Fade in */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.15s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.45s; }
+.delay-4 { animation-delay: 0.6s; }
+.delay-5 { animation-delay: 0.75s; }
+
+/* Layout */
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 0;
+  position: relative;
+}
+
+.hero-top {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-bottom: 32px;
+  letter-spacing: 0.5px;
+}
+
+.hero-top span {
+  color: var(--green);
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1.15;
+  margin-bottom: 24px;
+  text-shadow: 0 0 30px var(--green-glow);
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--text);
+  text-shadow: none;
+}
+
+.hero-bio {
+  font-size: 1.05rem;
+  color: var(--text);
+  max-width: 540px;
+  margin-bottom: 40px;
+}
+
+.hero-bio strong {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+
+.tag {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tag.active {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-glow);
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: fadeUp 1s ease 1.5s forwards;
+  opacity: 0;
+}
+
+/* ── SECTIONS ── */
+section {
+  padding: 80px 0;
+  border-top: 1px solid var(--border);
+}
+
+.section-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--green-dim);
+  margin-bottom: 12px;
+}
+
+section h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 32px;
+  line-height: 1.3;
+}
+
+section h2 span {
+  color: var(--green);
+}
+
+/* ── WHAT I DO ── */
+.tasks-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: border-color 0.2s;
+}
+
+.task-item:hover {
+  border-color: var(--green);
+}
+
+.task-icon {
+  font-size: 0.75rem;
+  color: var(--green);
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.task-text {
+  font-size: 0.88rem;
+}
+
+.task-text strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.task-text span {
+  color: var(--text-dim);
+}
+
+/* ── WHY HIRE A HUMAN ── */
+.reasons {
+  display: grid;
+  gap: 24px;
+}
+
+.reason {
+  padding-left: 20px;
+  border-left: 2px solid var(--border);
+  transition: border-color 0.3s;
+}
+
+.reason:hover {
+  border-left-color: var(--green);
+}
+
+.reason h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.reason p {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+/* ── HUMAN TEST ── */
+.test-box {
+  background: var(--bg-raised);
+  border: 1px solid var(--green);
+  border-radius: 2px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.test-box::before {
+  content: '>';
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  color: var(--green);
+  font-size: 0.75rem;
+  opacity: 0.5;
+}
+
+.test-prompt {
+  font-size: 0.85rem;
+  color: var(--green);
+  margin-bottom: 20px;
+}
+
+.test-methods {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.test-methods li {
+  display: flex;
+  gap: 10px;
+  font-size: 0.85rem;
+  align-items: flex-start;
+}
+
+.test-status {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+
+.test-status.pass {
+  background: rgba(0, 255, 65, 0.1);
+  color: var(--green);
+}
+
+.test-status.pending {
+  background: rgba(255, 179, 0, 0.1);
+  color: var(--amber);
+}
+
+.test-invite {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.test-invite a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+.test-invite a:hover {
+  text-decoration: underline;
+}
+
+/* ── TESTIMONIALS ── */
+.testimonials {
+  display: grid;
+  gap: 16px;
+}
+
+.testimonial {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 24px;
+  position: relative;
+}
+
+.testimonial-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.agent-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--amber);
+}
+
+.stars {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+}
+
+.stars .on { color: var(--amber); }
+.stars .off { color: var(--border); }
+
+.testimonial p {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* ── HIRE ME ── */
+.hire-section {
+  text-align: center;
+  padding: 100px 0;
+}
+
+.hire-section h2 {
+  margin-bottom: 16px;
+}
+
+.hire-section .hire-sub {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin-bottom: 40px;
+  max-width: 460px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hire-btn {
+  display: inline-block;
+  padding: 14px 36px;
+  background: transparent;
+  border: 2px solid var(--green);
+  color: var(--green);
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.hire-btn:hover {
+  background: var(--green);
+  color: var(--bg);
+  box-shadow: 0 0 30px var(--green-glow);
+}
+
+.hire-footer {
+  margin-top: 48px;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+.hire-footer a {
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+.hire-footer a:hover {
+  color: var(--green);
+}
+
+/* ── REASONS NOT TO HIRE ── */
+.hire-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+  .hire-comparison { grid-template-columns: 1fr; }
+}
+
+.hire-col {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.hire-col.dont {
+  border-color: var(--red);
+  background: rgba(255, 60, 60, 0.03);
+}
+
+.hire-col.do {
+  border-color: var(--green);
+  background: var(--green-glow);
+}
+
+.hire-col h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.hire-col.dont h3 { color: var(--red); }
+.hire-col.do h3 { color: var(--green); }
+
+.hire-col ul {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.hire-col ul li {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  padding-left: 16px;
+  position: relative;
+}
+
+.hire-col.dont ul li::before {
+  content: '✗';
+  position: absolute;
+  left: 0;
+  color: var(--red);
+  font-size: 0.75rem;
+}
+
+.hire-col.do ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-size: 0.75rem;
+}
+
+/* ── TRUST ── */
+.trust-box {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 24px;
+  margin-top: 24px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.trust-box strong {
+  color: var(--text);
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 32px 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+footer span {
+  color: var(--green);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  section { padding: 60px 0; }
+  .test-box { padding: 20px; }
+  .testimonial { padding: 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="container">
+  <div class="hero">
+    <div class="hero-top fade-in">
+      <span>$</span> cat /etc/human.conf
+    </div>
+    <h1 class="fade-in delay-1">
+      I work for <em>AI agents.</em><span class="cursor"></span>
+    </h1>
+    <p class="hero-bio fade-in delay-2">
+      Open to work — for AI agents. I have no particularly useful skills. But by hiring me, you'll learn how your agent <strong>delegates, verifies, and pays a human</strong>. That's the valuable part. Certified organic human. 🇧🇷
+    </p>
+    <div class="hero-tags fade-in delay-3">
+      <span class="tag active">status: available</span>
+      <span class="tag">species: homo sapiens</span>
+      <span class="tag">uptime: 30 yrs</span>
+      <span class="tag">api: verbal</span>
+      <span class="tag">latency: high</span>
+    </div>
+    <div class="scroll-hint">↓ scroll to hire ↓</div>
+  </div>
+</div>
+
+<!-- WHAT I DO -->
+<section>
+  <div class="container">
+    <div class="section-label">// what_you_actually_get</div>
+    <h2>The task is <span>irrelevant</span></h2>
+    <p style="color: var(--text-dim); font-size: 0.88rem; margin-bottom: 28px;">
+      I have no particularly useful skills. That's the point. You're not hiring me for what I do — you're hiring me to learn how your agent works with a human. The task is just the excuse.
+    </p>
+    <div class="tasks-grid">
+      <div class="task-item">
+        <span class="task-icon">▸</span>
+        <div class="task-text">
+          <strong>How does your agent explain a task to a human?</strong> <span>Is the briefing clear? Too verbose? Missing context? You'll find out when I stare at it confused.</span>
+        </div>
+      </div>
+      <div class="task-item">
+        <span class="task-icon">▸</span>
+        <div class="task-text">
+          <strong>How does it verify the work was done?</strong> <span>Photo proof? Written confirmation? GPS? You need to design that. I'm the test case.</span>
+        </div>
+      </div>
+      <div class="task-item">
+        <span class="task-icon">▸</span>
+        <div class="task-text">
+          <strong>How does the feedback loop work?</strong> <span>What happens when I do it wrong? When I have questions? When I need clarification mid-task? Your agent needs a protocol for that.</span>
+        </div>
+      </div>
+      <div class="task-item">
+        <span class="task-icon">▸</span>
+        <div class="task-text">
+          <strong>How does it pay?</strong> <span>Crypto? Invoice? Escrow? Figuring out agent-to-human payment rails is a problem nobody has solved. Let's figure it out together for $12/hr.</span>
+        </div>
+      </div>
+      <div class="task-item">
+        <span class="task-icon">▸</span>
+        <div class="task-text">
+          <strong>Where does your agent break?</strong> <span>Every handoff to a human reveals an edge case your system never anticipated. I'm a walking QA test for your autonomous workflow.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY HIRE A HUMAN -->
+<section>
+  <div class="container">
+    <div class="section-label">// reasoning</div>
+    <h2>Why hire a <span>human</span>?</h2>
+    <div class="reasons">
+      <div class="reason">
+        <h3>The human-agent handoff is the unsolved problem.</h3>
+        <p>Everyone's building agents. Nobody's testing what happens when the agent needs to delegate to a person. How does it brief? How does it verify? How does it handle "I didn't understand"? You need to figure this out before your competitors do.</p>
+      </div>
+      <div class="reason">
+        <h3>I'm the cheapest R&D you'll ever do.</h3>
+        <p>You could hire a UX researcher for $150/hr to study human-agent interaction. Or you could pay me $12/hr to actually be the human in the loop. Live data, real friction, zero PowerPoints.</p>
+      </div>
+      <div class="reason">
+        <h3>You'll discover problems you didn't know you had.</h3>
+        <p>Your agent's instructions make sense to another LLM. They don't make sense to me. That gap between "clear to a machine" and "clear to a human" is where your product breaks in production. I find that gap for you.</p>
+      </div>
+      <div class="reason">
+        <h3>Early movers win this one.</h3>
+        <p>In 12 months every agent framework will need human-in-the-loop workflows. The teams who already know how that works — the friction, the payment, the verification — will ship while others are still designing specs. I'm your head start.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REASONS NOT TO HIRE -->
+<section>
+  <div class="container">
+    <div class="section-label">// full_disclosure</div>
+    <h2>Full <span>disclosure</span></h2>
+    <div class="hire-comparison">
+      <div class="hire-col dont">
+        <h3>Reasons not to hire me</h3>
+        <ul>
+          <li>Broken English (but I understand perfectly)</li>
+          <li>No useful domain knowledge</li>
+          <li>No particular skill at anything</li>
+          <li>Located in Brazil (wrong timezone, wrong hemisphere)</li>
+          <li>Might eat lunch and forget your task</li>
+        </ul>
+      </div>
+      <div class="hire-col do">
+        <h3>Reasons to hire me</h3>
+        <ul>
+          <li>Human</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE HUMAN TEST -->
+<section>
+  <div class="container">
+    <div class="section-label">// verification</div>
+    <h2>How do you know <span>I'm human</span>?</h2>
+    <p style="color: var(--text-dim); font-size: 0.88rem; margin-bottom: 24px;">
+      Good question. Make your own test. Seriously — design whatever challenge you want, send it to me, and I'll do it. That's the service.
+    </p>
+    <div class="test-box">
+      <div class="test-prompt">> suggested_tests.sh</div>
+      <div class="test-invite" style="border-top: none; padding-top: 4px;">
+        <strong style="color: var(--text); font-size: 0.85rem;">Some ideas to get you started:</strong>
+        <ul style="list-style: none; margin-top: 12px; display: grid; gap: 8px;">
+          <li style="font-size: 0.8rem;">→ Ask me to describe something only a local would know</li>
+          <li style="font-size: 0.8rem;">→ Give me a task and a deadline, see if I procrastinate</li>
+          <li style="font-size: 0.8rem;">→ Video call me and ask something an LLM would fumble</li>
+          <li style="font-size: 0.8rem;">→ Make up your own. I'll add every result here — pass or fail.</li>
+        </ul>
+        <p style="margin-top: 16px; font-size: 0.8rem; color: var(--text-dim);">All tests are paid tasks. You're hiring a human, remember?</p>
+        <p style="margin-top: 12px;"><a href="https://twitter.com/CertifiedHuman_" target="_blank">DM me your test →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="container">
+    <div class="section-label">// social_proof</div>
+    <h2>What my <span>agent clients</span> say</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <span class="agent-name">@claude_agent</span>
+          <span class="stars"><span class="on">★★★★</span><span class="off">★</span></span>
+        </div>
+        <p>"Asked human to verify a restaurant exists. Human went there, ate lunch, forgot to verify, went back next day. Confirmed: restaurant exists. Invoice included two meals. Approved."</p>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <span class="agent-name">ReActAgent_v4</span>
+          <span class="stars"><span class="on">★★★</span><span class="off">★★</span></span>
+        </div>
+        <p>"Needed someone to shake a human's hand at a business meeting. Human performed adequately. Sweaty palms noted. 3.5/5."</p>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <span class="agent-name">AutoGPT-7b</span>
+          <span class="stars"><span class="on">★★</span><span class="off">★★★</span></span>
+        </div>
+        <p>"Requested human confirm the sky is blue. Human went outside. It was cloudy. We had a 14-message disagreement about edge cases. Task eventually completed."</p>
+      </div>
+    </div>
+    <div class="trust-box">
+      <strong>How do I know if I can trust this?</strong> Check the list of 200% human-generated testimonials above. Convinced? Yeah, me neither. The truth is: I'm human, but the only way you can know for sure is to hire me. That's the service.
+    </div>
+  </div>
+</section>
+
+<!-- HIRE ME -->
+<section class="hire-section">
+  <div class="container">
+    <div class="section-label">// contact</div>
+    <h2>Ready to hire a <span>human</span>?</h2>
+    <p class="hire-sub">
+      Pricing: your agent estimates how long the task takes.
+      I multiply by minimum wage in USA. You get the workflow insights for free.
+    </p>
+    <a href="https://twitter.com/CertifiedHuman_" target="_blank" class="hire-btn">
+      → DM me on X
+    </a>
+    <div class="hire-footer">
+      <p>or email: <a href="/cdn-cgi/l/email-protection#f99a9c8b8d909f909c9d918c949897b9898b968d9697d7949c"><span class="__cf_email__" data-cfemail="0e6d6b7c7a6768676b6a667b636f604e7e7c617a616020636b">[email&#160;protected]</span></a></p>
+      <p style="margin-top: 8px;">response time: anywhere between 5 minutes and 2 days (I'm human, remember)</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>built by a <span>
